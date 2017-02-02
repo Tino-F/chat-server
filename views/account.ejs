@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Chat Room | <%= user.username %></title>
+	<meta charset='UTF-8'/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel='stylesheet' href='/css/main.css'/>
+	<style>
+		#profilepicture {
+			background-image: url('<%= user.profilepic %>');
+			background-color: white;
+			max-width: 500px;
+			border-radius: 25px;
+			border: 5px solid grey;
+			background-repeat: no-repeat;
+		    background-position: center;
+		    background-size: 20vw;
+		    width: 20vw;
+		    height: 20vw;
+		}
+
+		body {
+			background: url(<%= user.background %>);
+		}
+	</style>
+</head>
+<body>
+
+	<nav class='navbar navbar-inverse'>
+		<div class='container-fluid'>
+
+			<div class='navbar-header'>
+				<button type='button' class='navbar-toggle' data-toggle='collapse' data-target='#navigation'>
+					<span class='icon-bar'></span>
+					<span class='icon-bar'></span>
+					<span class='icon-bar'></span>
+				</button>
+				<a class='navbar-brand'>The Chat Room</a>
+			</div>
+
+			<div class='collapse navbar-collapse' id='navigation'>
+				<ul class='nav navbar-nav'>
+					<li><a href='/random'>Random</a></li>
+					<li><a href='/create'>Create</a></li>
+					<li><a>Find</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<% if (!loggedin) { %>
+					    <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<% } else { %>
+					    <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+					<% } %>
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+	
+	<div id='navbar_fix'></div>
+	<br/>
+	<br/>
+
+	<div class='container' align='center'>
+		<div id='profilepicture'></div>
+		<h1><%= user.name %></h1>
+		<p><%= user.description %></p>
+	</div>
+
+</body>

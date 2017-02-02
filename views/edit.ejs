@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Chat Room | <%= user.username %></title>
+	<meta charset='UTF-8'/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel='stylesheet' href='/css/main.css'/>
+</head>
+<body>
+
+	<nav class='navbar navbar-inverse'>
+		<div class='container-fluid'>
+
+			<div class='navbar-header'>
+				<button type='button' class='navbar-toggle' data-toggle='collapse' data-target='#navigation'>
+					<span class='icon-bar'></span>
+					<span class='icon-bar'></span>
+					<span class='icon-bar'></span>
+				</button>
+				<a class='navbar-brand'>The Chat Room</a>
+			</div>
+
+			<div class='collapse navbar-collapse' id='navigation'>
+				<ul class='nav navbar-nav'>
+					<li><a href='/random'>Random</a></li>
+					<li><a href='/create'>Create</a></li>
+					<li><a>Find</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+	
+	<div id='navbar_fix'></div>
+	<br/>
+	<br/>
+	
+	<div class='container-fluid'>
+		<h1 style='padding-left: 5vw;'>Edit</h1>
+  
+		<br/>
+		<br/>
+		<br/>
+
+		<form method='post' enctype='multipart/form-data' align='center'>
+			<p id='error'><%= error %></p> <br/> <br/>
+			Username <br/> <input type='text' name='new_username' value='<%= user.username %>'/> <br/> <br/>
+			Description <br/> <textarea name='new_description'><%= user.description %></textarea> <br/> <br/>
+			Name <br/> <input type='text' name='new_name' value='<%= user.name %>'/> <br/> <br/>
+			Profile Picture <br/> <input type='file' name='new_profilepic' /> <br/> <br/>
+			Background Picture <br/> <input type='file' name='new_backgroundpicture' /> <br/> <br/>
+			Password <br/> <input type='password' name='original_pass'/> <br/> <br/>
+			New Password <br/> <input type='password' name='new_pass1'/> <br/> <br/>
+			Retype Password <br/> <input type='password' name='new_pass2'/> <br/> <br/>
+			<button value='submit' type='submit' class='btn btn-default'>Update</button>
+		</form>
+
+	</div>
+
+</body>
+</html>

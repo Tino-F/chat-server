@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Chat Room | <%= room.title %></title>
+	<meta charset='UTF-8'/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+	<script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+	<link rel='stylesheet' href='/css/main.css'/>
+	<script>
+
+		var mods = [
+			<% for (i=0; room.mods[i]; i++) { %>
+				<% if (room.mods[i] != 'TinoF') { %>
+					'<%= room.mods[i] %>'<% if ( room.mods[(i+1)] && room.mods[(i+1)] != 'TinoF') { %> , <% } %>
+				<% } %>
+			<% } %>];
+		console.log(mods);
+
+		$(document).ready(function () {
+			$('#roompass').hide()
+			$('.tag_holder').tagsinput({
+				tagClass: 'tag'
+			});
+
+			$('#type').change(function () {
+				if ($('#type option:selected').text() == 'Private') {
+					$('#roompass').slideDown();
+				} else {
+					$('#roompass').slideUp();
+				}
+			});
+
+			for (i=0; mods[i]; i++) {
+				$('.tag_holder').tagsinput('add', mods[i], {preventPost: true});
+			}
+			console.log('select value: ', $('select').val())
+		});
+	</script>
+</head>
+<body>
+
+	<nav class='navbar navbar-inverse'>
+		<div class='container-fluid'>
+
+			<div class='navbar-header'>
+				<button type='button' class='navbar-toggle' data-toggle='collapse' data-target='#navigation'>
+					<span class='icon-bar'></span>
+					<span class='icon-bar'></span>
+					<span class='icon-bar'></span>
+				</button>
+				<a class='navbar-brand'>The Chat Room</a>
+			</div>
+
+			<div class='collapse navbar-collapse' id='navigation'>
+				<ul class='nav navbar-nav'>
+					<li><a href='/random'>Random</a></li>
+					<li><a href='/create'>Create</a></li>
+					<li><a>Find</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+	
+	<div id='navbar_fix'></div>
+
+	<h1><%= room.title %></h1>
+
+	<div class='container'>
+
+		<br/>
+
+		<form id='edit_room' method='post' enctype='multipart/form-data' action='' align='center'/>
+			<h2>Edit</h2> <br/> <br/> 
+			<h4>Title</h4> <br/> <input value='<%= room.title %>' type='text' name='new_title' /> <br/> <br/>
+			<p id='error'><%= error %></p>
+			<h4>Description</h4> <br/> <textarea name='new_description'><%= room.description %></textarea> <br/> <br/> 
+			<h4>Background Image</h4> <br/> <input type='file' name='new_background_image'/> <br/> <br/> 
+			<h4>Board Color</h4> <br/> <input type='color' name='new_boardcolor' value='<%= room.boardcolor %>'/> <br/> <br/> 
+			<h4>Title Color</h4> <br/> <input type='color' name='new_titlecolor' value='<%= room.titlecolor %>'/> <br/> <br/> 
+			<h4>Message Color</h4> <br/> <input type='color' name='new_messagecolor' value='<%= room.messagecolor %>'/> <br/> <br/>
+			<h4>Message Text Color</h4> <br/> <input type='color' name='new_messagetextcolor' value='<%= room.messagetextcolor %>'/> <br/> <br/> <br/> <br/>
+			<h4>Moderators</h4> <br/> <select id='tags' class='tag_holder' type="text" name='moderators' value="" data-role="tagsinput" multiple></select> <br/> <br/><br/>
+			<h4>Type</h4> <br/>
+			<select name='new_status' id='type'>
+				<option value='public'>Public</option>
+				<option value='random'>Random</option>
+				<option value='private'>Private</option>
+			</select>
+			<br/> <br/>
+			<div id='roompass'>
+				<h4>Room Password</h4> <br/>
+				<input type='password' id='roompass' name='roompass'/> <br/> <br/>
+			</div>
+			<button value='submit' class='btn btn-default'>Submit</button> <br/> <br/>
+		</form>
+		<br/>
+		<br/>
+	</div>
+
+</body>
+</html>

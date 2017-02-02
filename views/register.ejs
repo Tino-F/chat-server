@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Chat Room</title>
+	<meta charset='UTF-8'/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+	<link rel='stylesheet' href='/css/main.css'/>
+	<script>
+
+		$(document).ready(function () {
+			$('#dontmatch').hide();
+			$('#submit').hide();
+			$('#submit').slideUp();
+			$('#dontmatch').slideUp();
+		});
+
+		var app = angular.module('register', []);
+		app.controller('myCtrl', function($scope) {});
+
+	</script>
+</head>
+<body>
+
+	<h1 class='container-fluid'>Register</h1>
+	<br/>
+	<div class='container' ng-app='register' align='center'>
+
+		<form method='post' action='/register' enctype='multipart/form-data' id='register'>
+			<p id='error'><%= error %><p>
+			Username <br/><input width='20%' type='text' name='username'/> <br/> <br/>
+			Name <br/><input width='20%' type='text' name='name'/> <br/> <br/>
+			Description <br/> <textarea name='description'></textarea> <br/> <br/>
+			Profile Pic <br/> <input type='file' name='profile_pic'/> <br/> <br/>
+			Profile Background <br/> <input type='file' name='profile_background'/> <br/> <br/>
+			Password <br/><input ng-model='pw1' type='password' name='password1'/> <br/> <br/>
+			Re-enter Password <br/><input ng-model='pw2' type='password' name='password2'/> <br/> <br/>
+			<p id='dontmatch'>Passwords do not match</p> <br/>
+			<button type='submit' id='submit' class='btn btn-default'>Submit</button>
+		</form>
+
+		<script ng-if='pw1==pw2 && pw1.length >= 6 && pw1.length >= 6'>
+			$('#submit').slideDown();
+			$('#dontmatch').slideUp();
+		</script>
+
+		<script ng-if='pw1!=pw2 && pw1.length >= 6 && pw1.length >= 6'>
+			$('#submit').slideUp();
+			$('#dontmatch').slideDown();
+		</script>
+
+		<script ng-if='pw1.length == 0 || pw1.length == 0'>
+			$('#submit').slideUp();
+			$('#dontmatch').slideUp();
+		</script>
+
+	</div>
+</body>
+</html>
